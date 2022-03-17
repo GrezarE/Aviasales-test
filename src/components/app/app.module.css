@@ -1,0 +1,22 @@
+.app {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #F3F7FA;
+}
+
+
+.logo {
+  width: 60px;
+}
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F3F7FA;
+
+}
