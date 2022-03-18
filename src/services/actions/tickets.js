@@ -21,12 +21,12 @@ export function getTickets(searchId) {
         } else {
           console.log('not end')
           dispatch({ type: GET_TICKETS_NOT_END })
-          setTimeout(() => dispatch(getTickets(searchId)), 1000)
+          setTimeout(() => dispatch(getTickets(searchId)), 200)
         }
       })
       .catch((err) => {
         console.log(err)
-        setTimeout(() => dispatch(getTickets(searchId)), 1000)
+        setTimeout(() => dispatch(getTickets(searchId)), 100)
       })
   }
 }

@@ -11,12 +11,12 @@ const TabElement = ({ text, type, value, onClick }) => {
   )
 }
 
-export const Tab = ({ state, setState }) => {
-  const [value, setValue] = useState('low')
+export const Tab = ({ value, onClick }) => {
+  // const [value, setValue] = useState('low')
 
-  const onClick = (item) => {
-    setValue(item)
-  }
+  // const onClick = (item) => {
+  //   setValue(item)
+  // }
 
   return (
     <ul className={style.tab}>

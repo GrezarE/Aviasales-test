@@ -4,6 +4,8 @@
   width: 232px;
   gap: 15px;
   background-color: #FFF;
+  padding-bottom: 20px;
+  border-radius: 10%;
 }
 
 .header {

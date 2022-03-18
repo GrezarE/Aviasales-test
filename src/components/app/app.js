@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getSearchId } from "../../services/actions/searchId"
 import ErrorBoundary from "../error-boundary/error-boundary"
@@ -14,6 +14,8 @@ export const App = () => {
   const dispatch = useDispatch()
   const { searchId } = useSelector(store => store.searchId)
   const { tickets, searchEnd } = useSelector(store => store.tickets)
+  const [value, setValue] = useState('low')
+
 
   const [checkBoxState, setCheckBoxState] = useState({
     all: false,
@@ -45,9 +47,9 @@ export const App = () => {
       }
   }
 
-  const [value, setValue] = useState('low')
 
   const onClickTab = (item) => {
+    console.log(item)
     setValue(item)
   }
 
@@ -56,33 +58,126 @@ export const App = () => {
     dispatch(getSearchId())
   }, [])
 
-  useEffect(() => {
-    if (searchId) {
-      dispatch(getTickets(searchId))
-      console.log(tickets, searchEnd)
-    }
-  }, [searchId])
+  // useEffect(() => {
+  //   if (searchId) {
+  //     dispatch(getTickets(searchId))
+  //     console.log(tickets, searchEnd)
+  //   }
+  // }, [searchId])
 
   useEffect(() => {
     console.log(tickets)
   }, [tickets])
 
-  const sort = tickets?.map(item => {
-    const ticket = item.segments
-    let result = ticket.find(item => item.stops.length === 3)
-    console.log(result)
-    if (result) {
-      return item
+  const setSort = () => {
+    if (checkBoxState.all === true) {
+      return tickets
     }
-  })
+    if (checkBoxState.noStops === true) {
+      return tickets?.filter(item => {
+        if (item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0) {
+          return item
+        }
+      })
+    }
+    if (checkBoxState.oneStops === true && checkBoxState.twoStops === false && checkBoxState.threeStops === false) {
+      return tickets?.filter(item => {
+        if (item.segments[0].stops.length === 1 && item.segments[1].stops.length === 1) {
+          return item
+        }
+      })
+    }
+    if (checkBoxState.oneStops === false && checkBoxState.twoStops === true && checkBoxState.threeStops === false) {
+      return tickets?.filter(item => {
+        if (item.segments[0].stops.length === 2 && item.segments[1].stops.length === 2) {
+          return item
+        }
+      })
+    }
+    if (checkBoxState.oneStops === false && checkBoxState.twoStops === false && checkBoxState.threeStops === true) {
+      return tickets?.filter(item => {
+        if (item.segments[0].stops.length === 3 && item.segments[1].stops.length === 3) {
+          return item
+        }
+      })
+    }
+    if (checkBoxState.oneStops === true && checkBoxState.twoStops === true && checkBoxState.threeStops === false) {
+      return tickets?.filter(item => {
+        if (item.segments[0].stops.length < 3 && item.segments[1].stops.length < 3) {
+          return item
+        }
+      })
+    } else {
+      return tickets
+    }
 
-  const sorted = sort?.filter(item => item)
+  }
+
+  const sort = useMemo(() =>
+    setSort()
+    , [tickets, checkBoxState])
+  // const sort = useMemo(() =>
+  //   tickets?.filter(item => {
+  //     if (item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0) {
+  //       return item
+  //     }
+  //   }), [tickets])
+  // const sort = tickets?.filter(item => {
+  //   if (item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0) {
+  //     return item
+  //   }
+  // })
+  // const sort = tickets?.filter(item => {
+  //   // const itemData = item
+  //   const ticket = item.segments
+  //   console.log(ticket)
+  //   let result = ticket.find(item => item.stops.length === 0)
+  //   if (result) {
+  //     return item
+  //   }
+  // })
 
   useEffect(() => {
-    if (sorted.length > 0) {
-      console.log(sorted)
+    if (sort) {
+      console.log(sort)
     }
-  }, [sorted])
+  }, [sort])
+
+  const filtered = sort?.filter(item => item)
+  const sorted = useMemo(() => filtered?.sort(function (a, b) {
+    if (value === 'low') {
+      return a.price - b.price
+    }
+    if (value === 'fast') {
+      return a.segments[0].duration - b.segments[0].duration
+    }
+    if (value === 'optimal') {
+      return a - b
+    }
+  }), [value, filtered])
+
+  // const sorted = filtered.sort(function (a, b) {
+  //   if (value === 'low') {
+  //     return a.price - b.price
+  //   }
+  //   if (value === 'fast') {
+  //     return a.segments[0].duration - b.segments[0].duration
+  //   }
+  //   if (value === 'optimal') {
+  //     return a - b
+  //   }
+  // })
+
+  const sliced = useMemo(() =>
+    sorted?.slice(0, 5),
+    [sorted]
+  )
+
+  useEffect(() => {
+    if (sliced?.length > 0) {
+      console.log(sliced)
+    }
+  }, [sliced, value])
 
 
 
