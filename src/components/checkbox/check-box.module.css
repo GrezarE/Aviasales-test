@@ -1,0 +1,68 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 232px;
+  gap: 15px;
+  background-color: #FFF;
+}
+
+.header {
+  font-size: 15px;
+  margin: 22px 0 21px 21px;
+}
+
+.input__box {
+  padding: 10px 0 10px 21px;
+}
+
+.input__box:hover {
+  background-color: #F1FCFF;
+  cursor: pointer;
+}
+
+.input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding-right: 11px;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.span {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.span::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: flex;
+  top: 0;
+  left: 0;
+  border: #9ABBCE 1px solid;
+  margin-right: 11px;
+  border-radius: 10%;
+}
+
+input:checked+span::before {
+  border-color: #2196F3;
+  background-image: url('../../images/Shape.svg');
+  background-size: 12px 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.label {
+  display: flex;
+  gap: 11px
+}
+
+.label:hover {
+  cursor: pointer;
+}
+

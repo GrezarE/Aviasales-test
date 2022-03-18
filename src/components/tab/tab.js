@@ -11,7 +11,7 @@ const TabElement = ({ text, type, value, onClick }) => {
   )
 }
 
-export const Tab = () => {
+export const Tab = ({ state, setState }) => {
   const [value, setValue] = useState('low')
 
   const onClick = (item) => {
