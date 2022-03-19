@@ -5,12 +5,16 @@
   gap: 15px;
   background-color: #FFF;
   padding-bottom: 20px;
-  border-radius: 10%;
+  border-radius: 3%;
 }
 
 .header {
   font-size: 15px;
-  margin: 22px 0 21px 21px;
+  margin: 22px 0 0 21px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: normal;
+
 }
 
 .input__box {
@@ -36,6 +40,11 @@
   display: inline-flex;
   align-items: center;
   user-select: none;
+  font-weight: normal;
+  font-size: 16px;
+
+
+
 }
 
 .span::before {

@@ -1,32 +1,5 @@
 import style from './ticket.module.css'
 
-
-const test = {
-  "price": 15031,
-  "carrier": "EY",
-  "segments": [
-    {
-      "origin": "MOW",
-      "destination": "HKT",
-      "date": "2022-03-28T13:19:00.000Z",
-      "stops": [
-        "IST",
-        "SHA"
-      ],
-      "duration": 1509
-    },
-    {
-      "origin": "HKT",
-      "destination": "MOW",
-      "date": "2022-04-17T01:36:00.000Z",
-      "stops": [],
-      "duration": 924
-    }
-  ]
-}
-
-
-
 const WayDate = ({ item }) => {
   const hours = item.date.slice(11, 16)
   const millisec = Date.parse(item.date)
@@ -66,14 +39,14 @@ const WayStops = ({ item }) => {
   console.log(stops)
 
   return (
-    <div>
+    <div >
       <p className={style.text__grey}>{getStops()}</p>
       <p className={style.text}>{stops}</p>
     </div>
   )
 }
 
-export const Ticket = ({ ticket = test }) => {
+export const Ticket = ({ ticket  }) => {
   const { price, carrier, segments } = ticket
   const wayTo = segments[0]
   const wayFrom = segments[1]

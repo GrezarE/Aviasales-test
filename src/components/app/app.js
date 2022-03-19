@@ -16,6 +16,7 @@ export const App = () => {
   const { searchId } = useSelector(store => store.searchId)
   const { tickets, searchEnd } = useSelector(store => store.tickets)
   const [value, setValue] = useState('low')
+  const [numberOfSearch, setNumberOfSearch] = useState(0)
 
 
   const [checkBoxState, setCheckBoxState] = useState({
@@ -150,9 +151,17 @@ export const App = () => {
 
 
   const sliced = useMemo(() =>
-    sorted?.slice(0, 5),
+    sorted?.slice(0, (5 + numberOfSearch)),
     [sorted]
   )
+
+  const handlerAddFiveSearch = () => {
+    setNumberOfSearch(numberOfSearch + 5)
+  }
+
+  useEffect(() => {
+    console.log(numberOfSearch)
+  }, [numberOfSearch])
 
   return (
     <ErrorBoundary>
@@ -168,6 +177,7 @@ export const App = () => {
               )
               }
             </ul>
+            {sliced.length >= 1 && <button className={style.button} onClick={handlerAddFiveSearch}>показать еще 5 билетов </button>}
           </section>
         </section>
       </main>

@@ -1,4 +1,3 @@
-import { useRef, useState } from 'react'
 import style from './tab.module.css'
 
 
@@ -12,12 +11,6 @@ const TabElement = ({ text, type, value, onClick }) => {
 }
 
 export const Tab = ({ value, onClick }) => {
-  // const [value, setValue] = useState('low')
-
-  // const onClick = (item) => {
-  //   setValue(item)
-  // }
-
   return (
     <ul className={style.tab}>
       <TabElement text='Самый дешевый' type='low' value={value} onClick={() => onClick('low')} />

@@ -1,6 +1,7 @@
 .text {
   margin: 0;
   padding: 0;
+  max-width: 104px;
 }
 
 .text__grey {
@@ -10,8 +11,7 @@
 }
 
 .li {
-  /* width: 502px; */
-  /* height: 184px; */
+
   display: flex;
   flex-direction: column;
   background-color: #FFF;
@@ -34,7 +34,6 @@
 .image {
   width: 110px;
   height: 36px;
-  /* object-fit:contain; */
 
 }
 
