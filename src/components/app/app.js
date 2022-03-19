@@ -7,6 +7,7 @@ import { Tab } from "../tab/tab"
 import style from './app.module.css'
 import { getTickets } from "../../services/actions/tickets"
 import { CheckBox } from "../checkbox/check-box"
+import { Ticket } from "../ticket/ticket"
 
 
 
@@ -29,7 +30,6 @@ export const App = () => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
-    console.log(target, value, name)
     if (name === 'all' && !checkBoxState.all) {
       setCheckBoxState({
         all: true,
@@ -41,10 +41,22 @@ export const App = () => {
     } else
       if (name !== 'all' && checkBoxState.all) {
         setCheckBoxState({ ...checkBoxState, [name]: value, all: false })
-      }
-      else {
-        setCheckBoxState({ ...checkBoxState, [name]: value })
-      }
+      } else
+        if (name === 'noStops' && !checkBoxState.noStops) {
+          setCheckBoxState({
+            all: false,
+            noStops: true,
+            oneStops: false,
+            twoStops: false,
+            threeStops: false
+          })
+        } else
+          if (name !== 'noStops' && checkBoxState.noStops) {
+            setCheckBoxState({ ...checkBoxState, [name]: value, noStops: false })
+          }
+          else {
+            setCheckBoxState({ ...checkBoxState, [name]: value })
+          }
   }
 
 
@@ -58,12 +70,12 @@ export const App = () => {
     dispatch(getSearchId())
   }, [])
 
-  // useEffect(() => {
-  //   if (searchId) {
-  //     dispatch(getTickets(searchId))
-  //     console.log(tickets, searchEnd)
-  //   }
-  // }, [searchId])
+  useEffect(() => {
+    if (searchId) {
+      dispatch(getTickets(searchId))
+      console.log(tickets, searchEnd)
+    }
+  }, [searchId])
 
   useEffect(() => {
     console.log(tickets)
@@ -110,32 +122,11 @@ export const App = () => {
     } else {
       return tickets
     }
-
   }
 
   const sort = useMemo(() =>
     setSort()
     , [tickets, checkBoxState])
-  // const sort = useMemo(() =>
-  //   tickets?.filter(item => {
-  //     if (item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0) {
-  //       return item
-  //     }
-  //   }), [tickets])
-  // const sort = tickets?.filter(item => {
-  //   if (item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0) {
-  //     return item
-  //   }
-  // })
-  // const sort = tickets?.filter(item => {
-  //   // const itemData = item
-  //   const ticket = item.segments
-  //   console.log(ticket)
-  //   let result = ticket.find(item => item.stops.length === 0)
-  //   if (result) {
-  //     return item
-  //   }
-  // })
 
   useEffect(() => {
     if (sort) {
@@ -156,33 +147,12 @@ export const App = () => {
     }
   }), [value, filtered])
 
-  // const sorted = filtered.sort(function (a, b) {
-  //   if (value === 'low') {
-  //     return a.price - b.price
-  //   }
-  //   if (value === 'fast') {
-  //     return a.segments[0].duration - b.segments[0].duration
-  //   }
-  //   if (value === 'optimal') {
-  //     return a - b
-  //   }
-  // })
+
 
   const sliced = useMemo(() =>
     sorted?.slice(0, 5),
     [sorted]
   )
-
-  useEffect(() => {
-    if (sliced?.length > 0) {
-      console.log(sliced)
-    }
-  }, [sliced, value])
-
-
-
-
-
 
   return (
     <ErrorBoundary>
@@ -190,9 +160,15 @@ export const App = () => {
         <img src={avia} className={style.logo}></img>
         <section className={style.app}>
           <CheckBox state={checkBoxState} onChange={onChangeCheckBox} />
-          <div>
+          <section>
             <Tab value={value} onClick={onClickTab} />
-          </div>
+            <ul className={style.tickets}>
+              {sliced?.map((item, index) =>
+                <Ticket ticket={item} key={index} />
+              )
+              }
+            </ul>
+          </section>
         </section>
       </main>
     </ErrorBoundary>

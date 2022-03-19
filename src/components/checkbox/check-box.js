@@ -57,13 +57,15 @@ export const CheckBox = ({ state, onChange }) => {
 
 
   return (
-    <form className={style.form}>
-      <h2 className={style.header}>Колличество пересадок</h2>
-      <Check text='Все' name='all' checked={state.all} onChange={onChange} />
-      <Check text='Без пересадок' name='noStops' checked={state.noStops} onChange={onChange} />
-      <Check text='1 пересадка' name='oneStops' checked={state.oneStops} onChange={onChange} />
-      <Check text='2 пересадки' name='twoStops' checked={state.twoStops} onChange={onChange} />
-      <Check text='3 пересадки' name='threeStops' checked={state.threeStops} onChange={onChange} />
-    </form>
+    <section>
+      <form className={style.form}>
+        <h2 className={style.header}>Колличество пересадок</h2>
+        <Check text='Все' name='all' checked={state.all} onChange={onChange} />
+        <Check text='Без пересадок' name='noStops' checked={state.noStops} onChange={onChange} />
+        <Check text='1 пересадка' name='oneStops' checked={state.oneStops} onChange={onChange} />
+        <Check text='2 пересадки' name='twoStops' checked={state.twoStops} onChange={onChange} />
+        <Check text='3 пересадки' name='threeStops' checked={state.threeStops} onChange={onChange} />
+      </form>
+    </section>
   )
 }
