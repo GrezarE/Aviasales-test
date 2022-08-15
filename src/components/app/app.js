@@ -62,24 +62,20 @@ export const App = () => {
 
 
   const onClickTab = (item) => {
-    console.log(item)
     setValue(item)
   }
 
   useEffect(() => {
-    console.log('loaded')
     dispatch(getSearchId())
   }, [])
 
   useEffect(() => {
     if (searchId) {
       dispatch(getTickets(searchId))
-      console.log(tickets, searchEnd)
     }
   }, [searchId])
 
   useEffect(() => {
-    console.log(tickets)
   }, [tickets])
 
   const setSort = () => {
@@ -131,7 +127,6 @@ export const App = () => {
 
   useEffect(() => {
     if (sort) {
-      console.log(sort)
     }
   }, [sort])
 
@@ -160,7 +155,6 @@ export const App = () => {
   }
 
   useEffect(() => {
-    console.log(numberOfSearch)
   }, [numberOfSearch])
 
   return (

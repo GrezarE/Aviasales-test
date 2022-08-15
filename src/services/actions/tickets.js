@@ -16,7 +16,6 @@ export function getTickets(searchId) {
       .then(checkResponse)
       .then((res) => {
         if (res.stop === true) {
-          console.log(res)
           dispatch({ type: GET_TICKETS_SUCCESS, tickets: res.tickets })
         } else {
           console.log('not end')
@@ -25,7 +24,6 @@ export function getTickets(searchId) {
         }
       })
       .catch((err) => {
-        console.log(err)
         setTimeout(() => dispatch(getTickets(searchId)), 100)
       })
   }

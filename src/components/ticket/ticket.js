@@ -36,7 +36,6 @@ const WayStops = ({ item }) => {
     return item.stops.length === 0 ? '0 пересадок' : item.stops.length === 1 ? '1 пересадка' : item.stops.length === 2 ? '2 пересадки' : '3 пересадки'
   }
   const stops = item.stops.join(', ')
-  console.log(stops)
 
   return (
     <div >
@@ -46,7 +45,7 @@ const WayStops = ({ item }) => {
   )
 }
 
-export const Ticket = ({ ticket  }) => {
+export const Ticket = ({ ticket }) => {
   const { price, carrier, segments } = ticket
   const wayTo = segments[0]
   const wayFrom = segments[1]

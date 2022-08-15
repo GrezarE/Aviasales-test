@@ -19,6 +19,8 @@
 
 }
 
+
+
 .way {
   display: flex;
   flex-direction: row;
@@ -43,6 +45,9 @@
   justify-content: space-between;
   padding: 20px 21px 25px 21px;
 }
+
+
+
 
 .header__price {
   padding: 0;
